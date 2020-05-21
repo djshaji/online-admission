@@ -37,8 +37,11 @@ function includeHTML() {
 function firebase_init () {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  ui.start('#firebaseui-auth-container', uiConfig);
+  if (document.getElementById ("firebaseui-auth-container") != null) {
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', uiConfig);
+  
+  }
 
 }
 
@@ -58,6 +61,26 @@ function submit_page (page) {
       data [i.id] = i.value
     }
 
-    console.log (data)
+    // console.log (data)
   }
+
+  var db = firebase.firestore();
+  var sem = document.getElementById ("admission-for-semester")
+  var stream = document.getElementById ("admission-for-stream")
+
+  var ref = db.collection ("users").doc (sem).collection (stream)
+}
+
+var fireuser = null ;
+function init () {
+  firebase_init ()
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      fireuser = user
+      // User is signed in.
+    } else {
+      // No user is signed in.
+    }
+  });
+  
 }

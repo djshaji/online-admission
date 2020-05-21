@@ -56,30 +56,28 @@
           color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger"
       -->
       <li class="nav-item">
-          <a class="nav-link" href="#profile" role="tab" data-toggle="tab">
+          <button disabled class="nav-link btn-danger text-white" href="#profile" role="tab" data-toggle="tab">
+            Step 1
               <i class="material-icons">edit</i>
-              Edit<br>
-              Profile
-          </a>
+            Admission<br>
+            Form
+          </button>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="#qualification" role="tab" data-toggle="tab">
+          <button disabled class="nav-link btn-danger text-white" href="#qualification" role="tab" data-toggle="tab">
+            Step 2
               <i class="material-icons">school</i>
               Educational<br>
               Qualification
-          </a>
+          </button>
       </li>
       <li class="nav-item">
-          <a class="nav-link active" href="#documents" role="tab" data-toggle="tab">
-              <i class="material-icons">add_to_photos</i>
-              Upload<br>Documents
-          </a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="#summary" role="tab" data-toggle="tab">
+          <button disabled class="nav-link btn-warning text-white" href="#summary" role="tab" data-toggle="tab">
+              Step 3
               <i class="material-icons">info</i>
-              Summary
-          </a>
+              Final<br>
+              Submit
+          </button>
       </li>
     </ul>
     <div class="tab-content tab-space">
@@ -127,8 +125,14 @@
                 <input class="text-input-sm form-control" id="admission-subject-5" placeholder="5.">
                 <input class="text-input-sm form-control" id="admission-subject-6" placeholder="6.">
             </div>
-      
-            <button class="btn btn-primary">Submit</button>
+            <div class="m-2">
+              <label class="h5" for="photo">
+                <i class="material-icons">attach_file</i>
+                Attach Recent Photograph</label>
+              <input type="file" class="form-control-file" id="photo">
+            </div>
+  
+            <button class="btn btn-primary">Next</button>
         </div>
       </div>
       <div class="row tab-pane" id="qualification">
@@ -163,7 +167,13 @@
                     <input class="text-input-sm form-control" id="10-subject-6" placeholder="6.">
                 </div>
                 <input type="text" class="text-input-lg form-control" id="10-school"  placeholder="Name of School">
-                          
+                <div class="row">
+                  <label class="h5" for="10-marksheet">
+                    <i class="material-icons">attach_file</i>
+                    Attach 10th Marksheet</label>
+                  <input type="file" class=" form-control-file" id="10-marksheet">
+                </div>
+                                        
                 
               </div>
           </div>
@@ -199,6 +209,12 @@
                     <input class="text-input-sm form-control" id="12-subject-6" placeholder="6.">
                 </div>
                 <input type="text" class="text-input-lg form-control" id="12-school"  placeholder="Name of School">
+                <div class="row">
+                  <label class="h5" for="12-marksheet">
+                    <i class="material-icons">attach_file</i>
+                    Attach 12th Marksheet</label>
+                  <input type="file" class=" form-control-file" id="12-marksheet">
+                </div>
                           
                 
               </div>
@@ -245,6 +261,12 @@
                     <input class="text-input-sm form-control" id="ba-1-subject-4" placeholder="4.">
                     <input class="text-input-sm form-control" id="ba-1-subject-5" placeholder="5.">
                     <input class="text-input-sm form-control" id="ba-1-subject-6" placeholder="6.">
+                </div>
+                <div class="row">
+                  <label class="h5" for="ba-1-marksheet">
+                    <i class="material-icons">attach_file</i>
+                    Attach Semester 1 Marksheet</label>
+                  <input type="file" class=" form-control-file" id="ba-1-marksheet">
                 </div>
                           
                 
@@ -293,11 +315,17 @@
                     <input class="text-input-sm form-control" id="ba-3-subject-5" placeholder="5.">
                     <input class="text-input-sm form-control" id="ba-3-subject-6" placeholder="6.">
                 </div>
+                <div class="row">
+                  <label class="h5" for="ba-3-marksheet">
+                    <i class="material-icons">attach_file</i>
+                    Attach Semester 3 Marksheet</label>
+                  <input type="file" class=" form-control-file" id="ba-3-marksheet">
+                </div>
                           
                 
               </div>
           </div>
-          <button class="btn btn-primary">Submit</button>
+          <button class="btn btn-primary">Next</button>
         </div>
       </div>
     

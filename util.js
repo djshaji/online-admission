@@ -41,3 +41,23 @@ function firebase_init () {
   ui.start('#firebaseui-auth-container', uiConfig);
 
 }
+
+function submit_page (page) {
+  inputs = $("#" + page).find ("input")
+  for (j of $("#" + page).find ("select"))
+    inputs. push  (j)
+  data = {}
+  for (i of inputs) {
+    if (i.id == null)
+      console.log (i)
+    if (i.id.search ("subject") == -1 && i.value == '') {
+      alert ("All fields are compulsory\n\nThe following field is not filled:\n" + i.id)
+      i.focus ()
+      return
+    } else {
+      data [i.id] = i.value
+    }
+
+    console.log (data)
+  }
+}

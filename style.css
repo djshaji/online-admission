@@ -1,0 +1,15 @@
+.text-input {
+    width: 500px;
+    margin:20px ;
+}
+
+.text-input-sm {
+    width: 200px;
+    margin:20px ;
+}
+
+.text-input-lg {
+    width: 90%;
+    margin:20px ;
+}
+

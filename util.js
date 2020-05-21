@@ -21,7 +21,7 @@ function includeHTML() {
       xhttp.open("GET", file, true);
       xhttp.send();
       /* Exit the function: */
-      componentHandler.upgradeDom ()
+      // componentHandler.upgradeDom ()
       return;
     } 
     // else if (elmnt.tagName == 'SCRIPT' ) {
@@ -32,4 +32,12 @@ function includeHTML() {
 
     // }
   }
+}
+
+function firebase_init () {
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  ui.start('#firebaseui-auth-container', uiConfig);
+
 }

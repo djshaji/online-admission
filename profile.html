@@ -98,7 +98,36 @@
 
             <input type="text" class="text-input form-control" id="address"  placeholder="Address">
             <input type="text" class="text-input form-control" id="bgroup"  placeholder="Blood Group">
-
+            <label for="admission-for-stream">Admission sought for</label>
+            <div class="form-group form-row">
+              <div class="col-md-2">
+                <label for="admission-for-stream">Stream</label>
+                <select class="form-control selectpicker" data-style="btn btn-link" id="admission-for-stream">
+                  <option>BA</option>
+                  <option>BSc</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <Label>Semester</Label>
+                <select class="form-control selectpicker" data-style="btn btn-link" id="admission-for-semester">
+                  <option>1</option>
+                  <option>3</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+            <div class="class=header">
+              <h4>Subjects</h4>
+            </div>
+            <div class="form-row">
+                <input class="text-input-sm form-control" id="admission-subject-1" placeholder="1.">
+                <input class="text-input-sm form-control" id="admission-subject-2" placeholder="2.">
+                <input class="text-input-sm form-control" id="admission-subject-3" placeholder="3.">
+                <input class="text-input-sm form-control" id="admission-subject-4" placeholder="4.">
+                <input class="text-input-sm form-control" id="admission-subject-5" placeholder="5.">
+                <input class="text-input-sm form-control" id="admission-subject-6" placeholder="6.">
+            </div>
+      
             <button class="btn btn-primary">Submit</button>
         </div>
       </div>
@@ -180,25 +209,95 @@
             <div class="card-header card-header-text card-header-primary">
                 <div class="card-text">
                   <h4 class="card-title">BA / BSc. Semester 1</h4>
+                  (If applicable)
                 </div>
               </div>
               <div class="card-body">
+                <div class="form-check">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" value="" id="ba-1-completed">
+                      BA / BSc. Semester 1 Completed
+                      <span class="form-check-sign">
+                          <span class="check"></span>
+                      </span>
+                  </label>
+                </div>
+              
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="12-marks" placeholder="Marks Obtained">
+                    <input type="number" class="text-input-sm form-control" id="ba-1-marks" placeholder="Marks Obtained">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="12-marks-total" placeholder="Total Marks">
+                    <input type="number" class="text-input-sm form-control" id="ba-1-marks-total" placeholder="Total Marks">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="12-percentage" placeholder="Percentage">
+                    <input type="number" class="text-input-sm form-control" id="ba-1-percentage" placeholder="Percentage">
                   </div>
                 </div>
-                <input type="text" class="text-input-lg form-control" id="12-school"  placeholder="Name of School">
+                <!-- <input type="text" class="text-input-lg form-control" id="12-school"  placeholder="Name of School"> -->
+                <div class="class=header">
+                  <h4>Subjects</h4>
+                </div>
+                <div class="form-row">
+                    <input class="text-input-sm form-control" id="ba-1-subject-1" placeholder="1.">
+                    <input class="text-input-sm form-control" id="ba-1-subject-2" placeholder="2.">
+                    <input class="text-input-sm form-control" id="ba-1-subject-3" placeholder="3.">
+                    <input class="text-input-sm form-control" id="ba-1-subject-4" placeholder="4.">
+                    <input class="text-input-sm form-control" id="ba-1-subject-5" placeholder="5.">
+                    <input class="text-input-sm form-control" id="ba-1-subject-6" placeholder="6.">
+                </div>
                           
                 
               </div>
           </div>
+        </div>
+        <div class="col">
+          <div class="card card-nav-tabs text-center" style="margin-top: 50px;">
+            <div class="card-header card-header-text card-header-primary">
+                <div class="card-text">
+                  <h4 class="card-title">BA / BSc. Semester 3</h4>
+                  (If applicable)
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="form-check">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" value="" id="ba-3-completed">
+                      BA / BSc. Semester 3 Completed
+                      <span class="form-check-sign">
+                          <span class="check"></span>
+                      </span>
+                  </label>
+                </div>
+              
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <input type="number" class="text-input-sm form-control" id="ba-3-marks" placeholder="Marks Obtained">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <input type="number" class="text-input-sm form-control" id="ba-3-marks-total" placeholder="Total Marks">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <input type="number" class="text-input-sm form-control" id="ba-3-percentage" placeholder="Percentage">
+                  </div>
+                </div>
+                <!-- <input type="text" class="text-input-lg form-control" id="12-school"  placeholder="Name of School"> -->
+                <div class="class=header">
+                  <h4>Subjects</h4>
+                </div>
+                <div class="form-row">
+                    <input class="text-input-sm form-control" id="ba-3-subject-1" placeholder="1.">
+                    <input class="text-input-sm form-control" id="ba-3-subject-2" placeholder="2.">
+                    <input class="text-input-sm form-control" id="ba-3-subject-3" placeholder="3.">
+                    <input class="text-input-sm form-control" id="ba-3-subject-4" placeholder="4.">
+                    <input class="text-input-sm form-control" id="ba-3-subject-5" placeholder="5.">
+                    <input class="text-input-sm form-control" id="ba-3-subject-6" placeholder="6.">
+                </div>
+                          
+                
+              </div>
+          </div>
+          <button class="btn btn-primary">Submit</button>
         </div>
       </div>
     

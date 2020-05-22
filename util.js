@@ -41,6 +41,7 @@ function firebase_init () {
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     ui.start('#firebaseui-auth-container', uiConfig);
   
+
   }
 
 }
@@ -50,6 +51,7 @@ function submit_page (page) {
   for (j of $("#" + page).find ("select"))
     inputs. push  (j)
   data = {}
+  files = {}
   for (i of inputs) {
     if (i.id == null)
       console.log (i)
@@ -57,6 +59,8 @@ function submit_page (page) {
       alert ("All fields are compulsory\n\nThe following field is not filled:\n" + i.id)
       i.focus ()
       return
+    } else if (i.type == 'file') {
+      files [i.id] = i.value
     } else {
       data [i.id] = i.value
     }
@@ -67,8 +71,13 @@ function submit_page (page) {
   var db = firebase.firestore();
   var sem = document.getElementById ("admission-for-semester")
   var stream = document.getElementById ("admission-for-stream")
-
-  var ref = db.collection ("users").doc (sem).collection (stream)
+  var storageRef = firebase.storage().ref();
+  
+  var ref = db.collection ("users").doc (sem).collection (stream).doc (fireuser.uid)
+  ref.set (data, {merge:true})
+    .then (function () {
+      
+    })
 }
 
 var fireuser = null ;

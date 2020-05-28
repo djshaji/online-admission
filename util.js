@@ -133,8 +133,8 @@ async function upload_cb (sem, stream, files, page) {
 function upload (page) {
   $("#spinner").modal ("show")
   document.getElementById ("spinner-status").innerText = "Uploading files..."
-  var sem = document.getElementById ("admission-for-semester").value
-  var stream = document.getElementById ("admission-for-stream").value
+  var sem = document.getElementById ("08-Admission-for-Semester").value
+  var stream = document.getElementById ("07-Admission-for-Stream").value
 
   inputs = $("#" + page).find ("input") 
   files = []
@@ -158,7 +158,7 @@ function check_form (page, data) {
     if (i.id == null)
       console.log (i)
 
-    if (i.id.search ("subject") == -1 && i.value == '' && i.id.search ("ba-") == -1) {
+    if (i.id.search ("Subject") == -1 && i.value == '') {
       alert ("All fields are compulsory\n\nThe following field is not filled:\n" + i.id)
       i.focus ()
       return
@@ -228,11 +228,16 @@ function check_page (page, data) {
     inputs. push  (j)
 
   for (i of inputs) {
-    if (i.id.search ("subject") != -1 || i.id.search ("ba-") != -1) {
+    if (i.id.search ("Subject") != -1 && ! data.hasOwnProperty (i.id)) {
       continue
     }
 
     if (data.hasOwnProperty (i.id)) {
+      if (i.type == 'checkbox') {
+        if (data [i.id] == 'on') {
+          i.checked = true
+        }
+      }
       if (i.type != 'file')
         i.value = data [i.id]
     } else {
@@ -248,8 +253,21 @@ function check_page (page, data) {
   btn.classList.remove ("active") // hack!!
   btn.classList.add ("btn-success")
   document.getElementById(page + "-icon").innerText = 'check_circle'
-  if (page == 'summary') 
+  if (page == 'qualification') 
     populate_summary ()
+  else if(page =='summary') {
+    if (firedata ['final-submit']) {
+      document.getElementById ("final-submit-agreement").style.display = 'none'
+      b = document.getElementById ("final-submit-btn")
+      b.classList.remove ('btn-danger')
+      b.classList.add ('btn-success')
+      b.classList.add ('text-white')
+      b.innerText = 'Form has been submitted'
+      b.removeAttribute ('href')
+      document.getElementById ("next-1").style.display = 'none'
+      document.getElementById ("next-2").style.display = 'none'
+    }
+  }
   return true
 }
 
@@ -269,9 +287,57 @@ function populate_summary () {
         b.appendChild (tr)
         tr.appendChild (td1)
         tr.appendChild (td2)
-        td1.innerText = i.id
-        td2.innerText =i.value
+        field = i.id
+        if (field.search ("13-ba-1") != -1)
+          field = field.replace ("13-ba-1", "13-BA/BSc. Semester 1")
+        if (field.search ("15-ba-3") != -1)
+          field = field.replace ("15-ba-3", "15-BA/BSc. Semester 3")
+        if (field.search ('-') != -1) {
+          field = field.replace ('-', '+')
+          // console.log (field)
+          field = field.split ('+') [1]
+          field = field.replace (/-/g, ' ')
+  
+        }
+
+        td1.innerText = field
+        td2.innerHTML = "<a href=\"javascript: focus_entry ('" + page + "','" + i.id + "')\"><i class=\"material-icons\">edit</i>&nbsp&nbsp;" + i.value + "</a>"
       }
     }
   }
+}
+
+function focus_entry (page, input) {
+  document.getElementById (page + '-btn').click ()
+  document.getElementById ("input").focus ()
+}
+
+function final_submit () {
+  if (!document.getElementById ("i-agree").checked) {
+    alert ("You have to verify that information provided is correct before submitting the form.")
+    document.getElementById ("i-agree").focus ()
+    return
+  }
+
+  if (! confirm ("Are you sure you want to submit the form? You cannot make any changes after the form has been submitted."))
+    return
+  
+  data = {
+    "final-submit": true,
+    "i-agree": "on"
+  }
+
+  $("#spinner").modal ("show")
+  document.getElementById ("spinner-status").innerText = "Submitting form..."
+  var db = firebase.firestore();
+  var ref = db.collection ("users").doc (fireuser.semester).collection (fireuser.stream).doc (fireuser.uid)
+  ref.set (data, {merge:true})
+    .then (function () {
+      alert ("Form has been successfully")
+      location.reload ()
+    }).catch (function (err) {
+      alert ("Error saving data:\n\n" + err)
+      console.error (err)
+    })
+    
 }

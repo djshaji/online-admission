@@ -95,7 +95,7 @@
               <input type="number" class="form-control col" placeholder="Year" id="05-Date-of-Birth-Year" style="width: 50px;">
             </div>
 
-            <input type="text" class="text-input form-control" id="address"  placeholder="Address">
+            <input type="text" class="text-input form-control" id="05-Address"  placeholder="Address">
             <input type="text" class="text-input form-control" id="06-Blood-Group"  placeholder="Blood Group">
             <label for="07-Admission-for-Stream">Admission sought for</label>
             <div class="form-group form-row">
@@ -133,7 +133,7 @@
               <input type="file" class="form-control-file" id="photo">
             </div>
   
-            <a href="javascript: check_form ('profile');" class="btn btn-primary">
+            <a href="javascript: check_form ('profile');" class="btn btn-primary" id="next-1">
               Next
             </a>
             <!-- <div class="spinner-border"></div> -->
@@ -164,12 +164,12 @@
                   <h4>Subjects</h4>
                 </div>
                 <div class="form-row">
-                    <input class="text-input-sm form-control" id="10-subject-1" placeholder="1.">
-                    <input class="text-input-sm form-control" id="10-subject-2" placeholder="2.">
-                    <input class="text-input-sm form-control" id="10-subject-3" placeholder="3.">
-                    <input class="text-input-sm form-control" id="10-subject-4" placeholder="4.">
-                    <input class="text-input-sm form-control" id="10-subject-5" placeholder="5.">
-                    <input class="text-input-sm form-control" id="10-subject-6" placeholder="6.">
+                    <input class="text-input-sm form-control" id="10-10th-Subject-1" placeholder="1.">
+                    <input class="text-input-sm form-control" id="10-10th-Subject-2" placeholder="2.">
+                    <input class="text-input-sm form-control" id="10-10th-Subject-3" placeholder="3.">
+                    <input class="text-input-sm form-control" id="10-10th-Subject-4" placeholder="4.">
+                    <input class="text-input-sm form-control" id="10-10th-Subject-5" placeholder="5.">
+                    <input class="text-input-sm form-control" id="10-10th-Subject-6" placeholder="6.">
                 </div>
                 <input type="text" class="text-input-lg form-control" id="10-10th-Name-of-School"  placeholder="Name of School">
                 <div class="row">
@@ -206,12 +206,12 @@
                   <h4>Subjects</h4>
                 </div>
                 <div class="form-row">
-                    <input class="text-input-sm form-control" id="12-subject-1" placeholder="1.">
-                    <input class="text-input-sm form-control" id="12-subject-2" placeholder="2.">
-                    <input class="text-input-sm form-control" id="12-subject-3" placeholder="3.">
-                    <input class="text-input-sm form-control" id="12-subject-4" placeholder="4.">
-                    <input class="text-input-sm form-control" id="12-subject-5" placeholder="5.">
-                    <input class="text-input-sm form-control" id="12-subject-6" placeholder="6.">
+                    <input class="text-input-sm form-control" id="12-12th-Subject-1" placeholder="1.">
+                    <input class="text-input-sm form-control" id="12-12th-Subject-2" placeholder="2.">
+                    <input class="text-input-sm form-control" id="12-12th-Subject-3" placeholder="3.">
+                    <input class="text-input-sm form-control" id="12-12th-Subject-4" placeholder="4.">
+                    <input class="text-input-sm form-control" id="12-12th-Subject-5" placeholder="5.">
+                    <input class="text-input-sm form-control" id="12-12th-Subject-6" placeholder="6.">
                 </div>
                 <input type="text" class="text-input-lg form-control" id="12-12th-Name-of-School"  placeholder="Name of School">
                 <div class="row">
@@ -330,7 +330,7 @@
                 
               </div>
           </div>
-          <a href="javascript: check_form ('qualification');" class="btn btn-primary">
+          <a href="javascript: check_form ('qualification');" class="btn btn-primary" id="next-2">
             Next
           </a>
       </div>
@@ -338,7 +338,7 @@
     
       <div class="tab-pane" id="summary">
         <h3>To submit your application, read the following particulars carefully and click on Final Submit below</h3>  
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover table-striped">
           <thead>
             <tr>
               <th scope="col"></th>
@@ -348,6 +348,16 @@
           <tbody id="summary-table">
           </tbody>        
         </table>
+        <div class="row" id="final-submit-agreement">
+          <input class="form-check form-control col-md-1" type="checkbox" id="i-agree">
+          <label class="lead col-md-10 form-check-label" for="i-agree">
+            I confirm that the above information is correct, and I shall be responsible for any consequences arising thereof.
+          </label>
+        </div>
+        <a href="javascript: final_submit ();" class="btn btn-danger mt-3" id='final-submit-btn'>
+          Final Submit
+        </a>
+
       </div>
     </div>
 

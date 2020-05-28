@@ -15,6 +15,7 @@ exports.setCredentials = functions.firestore.document("/users/{semester}/{stream
     //     || context.eventType == 'google.firestore.document.write'
     //     || context.eventType == 'google.firestore.document.create'
     //     ) {
+        var data = snapshot.data ()
         await admin.auth().getUser(context.params.uid).then(async function (userRecord) {
           claims = userRecord.customClaims
           console.log('uid:', context.params.uid, 'current claims:', context.params.claims);
@@ -25,6 +26,10 @@ exports.setCredentials = functions.firestore.document("/users/{semester}/{stream
           }
           claims ['semester'] = context.params.semester
           claims ['stream'] = context.params.stream
+          if (data["final-submit"] === true) {
+            claims ['submit'] = true
+          }
+  
           await admin.auth().setCustomUserClaims(context.params.uid, claims)
             .then(async function (cl) {
               console.log('claims set to', cl, 'by', claims);

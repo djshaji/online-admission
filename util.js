@@ -266,6 +266,32 @@ function check_page (page, data) {
       b.removeAttribute ('href')
       document.getElementById ("next-1").style.display = 'none'
       document.getElementById ("next-2").style.display = 'none'
+
+      status = firedata ["status"]
+      callback = firedata ["callback"]
+      callback_date = firedata ["callback-date"]
+
+      header_title = document.getElementById ("header-title")
+      switch (status) {
+        case null:
+        default:
+          header_title.innerHTML = 'Your application status is <span class="btn btn-warning">Pending</span>' ;
+          break
+        case "approved":
+          header_title.innerHTML = 'Your application status is <span class="btn btn-success">Approved</span>' ;
+          break
+        case "rejected":
+          header_title.innerHTML = 'Your application status is <span class="btn btn-danger">Rejected</span>' ;
+          break
+        
+      }
+
+      if (callback != null && callback_date != null) {
+        document.getElementById ("header-callback").innerHTML = 
+          "You have to appear for <span class='btn btn-danger'>" + callback + '</span> on <span class="btn btn-danger">' + callback_date + '</span>'
+      }
+
+
     }
   }
   return true

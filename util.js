@@ -103,14 +103,24 @@ function submit_page (page, metadatas) {
 
 var fireuser = null ;
 function init () {
+  console.log ("init", location.href)
   firebase_init ()
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       fireuser = user
+      console.log (user)
       // User is signed in.
-      check_progress ()
+      document.getElementById ("menu-profile").classList.remove ('d-none')
+      document.getElementById ("menu-logout").classList.remove ('d-none')
+
+      if (location.pathname == '/profile.html')
+        check_progress ()
+      else {
+        get_tokens ()
+      }
     } else {
       // No user is signed in.
+      console.warn ("No user signed in")
     }
   });
   
@@ -291,7 +301,7 @@ function check_page (page, data) {
           "You have to appear for <span class='btn btn-danger'>" + callback + '</span> on <span class="btn btn-danger">' + callback_date + '</span>'
       }
 
-
+      $("#spinner").modal ("hide")
     }
   }
   return true
@@ -366,4 +376,76 @@ function final_submit () {
       console.error (err)
     })
     
+}
+
+async function get_tokens () {
+  await firebase.auth().currentUser.getIdTokenResult(true)
+  .then((idTokenResult) => {
+    console.log (idTokenResult)
+    
+    if (!idTokenResult.claims.hasOwnProperty ("semester"))
+      return
+      
+    if (!idTokenResult.claims.hasOwnProperty ("stream"))
+      return
+
+    semester = idTokenResult ["claims"] ["semester"]
+    stream = idTokenResult ["claims"]["stream"]
+    fireuser.semester = idTokenResult ["claims"]["semester"]
+    fireuser.stream = idTokenResult ["claims"]["stream"]
+    document.getElementById ("default-section").classList.add ('d-none')
+    var db = firebase.firestore();
+
+    var ref = db.collection ("users").doc (fireuser.semester).collection (fireuser.stream).doc (fireuser.uid)
+    $("#spinner").modal ("show")
+    document.getElementById ("spinner-status").innerText = "Loading..."
+    ref.get ()
+      .then (function (doc) {
+        data = doc.data ()
+        firedata = data
+        console.log (data)
+        status = firedata ["status"]
+        callback = firedata ["callback"]
+        callback_date = firedata ["callback-date"]
+  
+        header_title = document.getElementById ("header-title")
+        switch (status) {
+          case null:
+            break ;
+          default:
+            header_title.innerHTML = 'Your application status is <span class="btn btn-warning">Pending</span>' ;
+            break
+          case "approved":
+            header_title.innerHTML = 'Your application status is <span class="btn btn-success">Approved</span>' ;
+            break
+          case "rejected":
+            header_title.innerHTML = 'Your application status is <span class="btn btn-danger">Rejected</span>' ;
+            break
+          
+        }
+  
+        if (callback != null && callback_date != null) {
+          document.getElementById ("header-callback").innerHTML = 
+            "You have to appear for <span class='btn btn-danger'>" + callback + '</span> on <span class="btn btn-danger">' + callback_date + '</span>'
+        }
+
+        $("#spinner").modal ("hide")
+               
+      })
+    
+
+  })
+}
+
+function logout () {
+  firebase.auth().signOut().then(function() {
+    // Sign-out successful.
+    alert ("You have been logged out.")
+    location.href = "/"
+  }).catch(function(error) {
+    // An error happened.
+    alert ("Unable to log out")
+    console.error (error)
+  });
+  
 }

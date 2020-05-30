@@ -33,6 +33,7 @@
 <!-- Add Firebase products that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-storage.js"></script>
 <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
@@ -42,12 +43,12 @@
 <div w3-include-html="header.html"></div>
 
 
-<div class="page-header header-filter" data-parallax="true" style="background-image: url('assets/img/bg3.jpg')">
+<div class="border-bottom header-filter" data-parallax="true" style="background-image: url('assets/img/bg3.jpg')">
   <div class="container">
       <div class="row">
       <div class="col-md-8 ml-auto mr-auto">
           <div class="brand text-center">
-          <h1>Govt. Degree College Udhampur</h1>
+          <h1 class="text-white">Govt. Degree College Udhampur</h1>
           <h3 class="title text-center">Online Admissions Portal</h3>
           </div>
       </div>
@@ -58,11 +59,16 @@
   
 <div class="main main-raised">
   <div class="container">
-      <div class="section text-center">
+      <div class="section text-center" id="default-section">
         <h2 class="title">Create Account / Login to Apply</h2>
         <div id="firebaseui-auth-container"></div>
 
       </div>
+      <div class="section text-center" id="user-section">
+        <h3 id="header-title"></h3>
+        <h3 id="header-callback"></h3>
+      </div>
+
   </div>
 </div>
   
@@ -71,5 +77,27 @@
 
 <script>
 includeHTML();
-firebase_init ()
+init ()
 </script>
+
+
+<div class="modal fade" id="spinner"  data-keyboard="false" data-backdrop="static" >
+  <div id="spinner-body" data-controls-modal="spinner-body" class="modal-dialog modal-dialog-centered" data-keyboard="false" data-backdrop="static" >
+      <div class="modal-content">
+          <div class="modal-header">
+              <h2 class="modal-title" id="spinner-title">
+                <img src="assets/img/spinner.gif" width="40px">
+                Loading   
+              </h2>
+              
+          </div>
+          <div class="modal-footer" id="spinner-text">
+              <label id="spinner-status" class="modal-title">Please wait...</label>
+              <div class="progress">
+                <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+          </div>
+      </div>
+      
+    </div>
+  </div>

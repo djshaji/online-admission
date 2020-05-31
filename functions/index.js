@@ -15,7 +15,9 @@ exports.setCredentials = functions.firestore.document("/users/{semester}/{stream
     //     || context.eventType == 'google.firestore.document.write'
     //     || context.eventType == 'google.firestore.document.create'
     //     ) {
-        var data = snapshot.data ()
+      var data = {}  
+      if (snapshot.data != null)
+          data = snapshot.data ()
         await admin.auth().getUser(context.params.uid).then(async function (userRecord) {
           claims = userRecord.customClaims
           console.log('uid:', context.params.uid, 'current claims:', context.params.claims);

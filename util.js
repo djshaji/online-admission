@@ -113,9 +113,9 @@ function init () {
       document.getElementById ("menu-profile").classList.remove ('d-none')
       document.getElementById ("menu-logout").classList.remove ('d-none')
 
-      if (location.pathname == '/profile.html')
+      if (module == 'profile')
         check_progress ()
-      else {
+      else if (module == 'index') {
         get_tokens ()
       }
     } else {
@@ -165,10 +165,13 @@ function check_form (page, data) {
   data = {}
   files = {}
   for (i of inputs) {
+    if (i.type == 'checkbox')
+      continue
     if (i.id == null)
       console.log (i)
 
-    if (i.id.search ("Subject") == -1 && i.value == '') {
+    // if ((i.id.toLowerCase ().search ("subject")||i.id.toLowerCase ().search ("-ba-")) == -1 && i.value == '') {
+    if (! i.hasAttribute ("optional") && i.value == '') {
       alert ("All fields are compulsory\n\nThe following field is not filled:\n" + i.id)
       i.focus ()
       return
@@ -184,6 +187,8 @@ function check_form (page, data) {
 
 var firedata = null 
 function check_progress () {
+  console.log ("Module Profile")
+
   firebase.auth().currentUser.getIdTokenResult(true)
   .then((idTokenResult) => {
     console.log (idTokenResult)
@@ -237,8 +242,10 @@ function check_page (page, data) {
   for (j of $("#" + page).find ("select"))
     inputs. push  (j)
 
+  var storage = firebase.storage();
+
   for (i of inputs) {
-    if (i.id.search ("Subject") != -1 && ! data.hasOwnProperty (i.id)) {
+    if (i.hasAttribute ("optional") && ! data.hasOwnProperty (i.id)) {
       continue
     }
 
@@ -250,6 +257,23 @@ function check_page (page, data) {
       }
       if (i.type != 'file')
         i.value = data [i.id]
+      
+      if (data [i.id].search ("1/") === 0) {
+        let img = document.getElementById (i.id + '-img')
+        if (img != null) {
+          img.src = "assets/img/spinner.gif"
+          storage.ref (data [i.id]).getDownloadURL()
+            .then(function(url) {
+              console.log (img.id, url)
+              img.src = url
+            }).catch(function(error) {
+              // Handle any errors
+              // alert ("Unable to get image")
+              console.error (error)
+            })
+  
+        }
+      }
     } else {
       console.warn (i.id, "has not been filled.")
       return false
@@ -448,4 +472,12 @@ function logout () {
     console.error (error)
   });
   
+}
+
+function calculate_percentage (el1, el2, el3)  {
+  e1 = document.getElementById (el1).value 
+  e2 = document.getElementById (el2).value 
+  
+  if (e1 != '' && e2 != '')
+    document.getElementById (el3).value = (e1 / e2) * 100
 }

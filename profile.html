@@ -1,5 +1,8 @@
 <!doctype html>
 <html lang="en">
+<script>
+  const module = "profile"
+</script>
 <!--  Fonts and icons  -->
 <!-- Fonts and icons -->
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -124,9 +127,10 @@
                 <input class="text-input-sm form-control" id="09-Admission-Subject-2" placeholder="2.">
                 <input class="text-input-sm form-control" id="09-Admission-Subject-3" placeholder="3.">
                 <input class="text-input-sm form-control" id="09-Admission-Subject-4" placeholder="4.">
-                <input class="text-input-sm form-control" id="09-Admission-Subject-5" placeholder="5.">
-                <input class="text-input-sm form-control" id="09-Admission-Subject-6" placeholder="6.">
+                <input class="text-input-sm form-control" id="09-Admission-Subject-5" placeholder="5." optional>
+                <input class="text-input-sm form-control" id="09-Admission-Subject-6" placeholder="6." optional>
             </div>
+            <img id="photo-img" width="300">
             <div class="m-2">
               <label class="h5" for="photo">
                 <i class="material-icons">attach_file</i>
@@ -152,13 +156,15 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="10-10th-Marks-Obtained" placeholder="Marks Obtained">
+                    <input type="number" class="text-input-sm form-control" id="10-10th-Marks-Obtained" placeholder="Marks Obtained"
+                      onchange="javascript: calculate_percentage ('10-10th-Marks-Obtained', '10-10th-Total-Marks', '10-10th-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="10-10th-Total-Marks" placeholder="Total Marks">
+                    <input type="number" class="text-input-sm form-control" id="10-10th-Total-Marks" placeholder="Total Marks"
+                      onchange="javascript: calculate_percentage ('10-10th-Marks-Obtained', '10-10th-Total-Marks', '10-10th-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="10-10th-Percentage" placeholder="Percentage">
+                    <input type="number" class="text-input-sm form-control" id="10-10th-Percentage" placeholder="Percentage" disabled>
                   </div>
                 </div>
                 <div class="class=header">
@@ -169,10 +175,11 @@
                     <input class="text-input-sm form-control" id="10-10th-Subject-2" placeholder="2.">
                     <input class="text-input-sm form-control" id="10-10th-Subject-3" placeholder="3.">
                     <input class="text-input-sm form-control" id="10-10th-Subject-4" placeholder="4.">
-                    <input class="text-input-sm form-control" id="10-10th-Subject-5" placeholder="5.">
-                    <input class="text-input-sm form-control" id="10-10th-Subject-6" placeholder="6.">
+                    <input class="text-input-sm form-control" id="10-10th-Subject-5" placeholder="5." optional>
+                    <input class="text-input-sm form-control" id="10-10th-Subject-6" placeholder="6." optional>
                 </div>
                 <input type="text" class="text-input-lg form-control" id="10-10th-Name-of-School"  placeholder="Name of School">
+                <img id="10-10th-Marksheet-img" width="300">
                 <div class="row">
                   <label class="h5" for="10-marksheet">
                     <i class="material-icons">attach_file</i>
@@ -194,13 +201,15 @@
               <div class="card-body">
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="12-12th-Marks-Obtained" placeholder="Marks Obtained">
+                    <input type="number" class="text-input-sm form-control" id="12-12th-Marks-Obtained" placeholder="Marks Obtained"
+                    onchange="javascript: calculate_percentage ('12-12th-Marks-Obtained', '12-12th-Total-Marks', '12-12th-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="12-12th-Total-Marks" placeholder="Total Marks">
+                    <input type="number" class="text-input-sm form-control" id="12-12th-Total-Marks" placeholder="Total Marks"
+                    onchange="javascript: calculate_percentage ('12-12th-Marks-Obtained', '12-12th-Total-Marks', '12-12th-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="12-12th-Percentage" placeholder="Percentage">
+                    <input type="number" class="text-input-sm form-control" id="12-12th-Percentage" placeholder="Percentage" disabled>
                   </div>
                 </div>
                 <div class="class=header">
@@ -211,15 +220,16 @@
                     <input class="text-input-sm form-control" id="12-12th-Subject-2" placeholder="2.">
                     <input class="text-input-sm form-control" id="12-12th-Subject-3" placeholder="3.">
                     <input class="text-input-sm form-control" id="12-12th-Subject-4" placeholder="4.">
-                    <input class="text-input-sm form-control" id="12-12th-Subject-5" placeholder="5.">
-                    <input class="text-input-sm form-control" id="12-12th-Subject-6" placeholder="6.">
+                    <input class="text-input-sm form-control" id="12-12th-Subject-5" placeholder="5." optional>
+                    <input class="text-input-sm form-control" id="12-12th-Subject-6" placeholder="6." optional>
                 </div>
                 <input type="text" class="text-input-lg form-control" id="12-12th-Name-of-School"  placeholder="Name of School">
+                <img id="12-12th-Marksheet-img" width="300">
                 <div class="row">
                   <label class="h5" for="12-marksheet">
                     <i class="material-icons">attach_file</i>
                     Attach 12th Marksheet</label>
-                  <input type="file" class=" form-control-file" id="12-marksheet">
+                  <input type="file" class=" form-control-file" id="12-12th-Marksheet">
                 </div>
                           
                 
@@ -237,7 +247,7 @@
               <div class="card-body">
                 <div class="form-check">
                   <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" value="" id="13-ba-1-completed">
+                      <input class="form-check-input" type="checkbox" value="" id="13-ba-1-completed" optional>
                       BA / BSc. Semester 1 Completed
                       <span class="form-check-sign">
                           <span class="check"></span>
@@ -247,13 +257,15 @@
               
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="13-ba-1-Marks-Obtained" placeholder="Marks Obtained">
+                    <input type="number" class="text-input-sm form-control" id="13-ba-1-Marks-Obtained" placeholder="Marks Obtained" optional
+                    onchange="javascript: calculate_percentage ('13-ba-1-Marks-Obtained', '13-ba-1-Total-Marks', '13-ba-1-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="13-ba-1-Total-Marks" placeholder="Total Marks">
+                    <input type="number" class="text-input-sm form-control" id="13-ba-1-Total-Marks" placeholder="Total Marks" optional
+                    onchange="javascript: calculate_percentage ('13-ba-1-Marks-Obtained', '13-ba-1-Total-Marks', '13-ba-1-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="13-ba-1-Percentage" placeholder="Percentage">
+                    <input type="number" class="text-input-sm form-control" id="13-ba-1-Percentage" placeholder="Percentage" optional disabled>
                   </div>
                 </div>
                 <!-- <input type="text" class="text-input-lg form-control" id="12-school"  placeholder="Name of School"> -->
@@ -261,18 +273,19 @@
                   <h4>Subjects</h4>
                 </div>
                 <div class="form-row">
-                    <input class="text-input-sm form-control" id="13-ba-1-subject-1" placeholder="1.">
-                    <input class="text-input-sm form-control" id="13-ba-1-subject-2" placeholder="2.">
-                    <input class="text-input-sm form-control" id="13-ba-1-subject-3" placeholder="3.">
-                    <input class="text-input-sm form-control" id="13-ba-1-subject-4" placeholder="4.">
-                    <input class="text-input-sm form-control" id="13-ba-1-subject-5" placeholder="5.">
-                    <input class="text-input-sm form-control" id="13-ba-1-subject-6" placeholder="6.">
+                    <input class="text-input-sm form-control" id="13-ba-1-subject-1" placeholder="1." optional>
+                    <input class="text-input-sm form-control" id="13-ba-1-subject-2" placeholder="2." optional>
+                    <input class="text-input-sm form-control" id="13-ba-1-subject-3" placeholder="3." optional>
+                    <input class="text-input-sm form-control" id="13-ba-1-subject-4" placeholder="4." optional>
+                    <input class="text-input-sm form-control" id="13-ba-1-subject-5" placeholder="5." optional>
+                    <input class="text-input-sm form-control" id="13-ba-1-subject-6" placeholder="6." optional>
                 </div>
+                <img id="13-ba-1-marksheet-img" width="300">
                 <div class="row">
                   <label class="h5" for="13-ba-1-marksheet">
                     <i class="material-icons">attach_file</i>
                     Attach Semester 1 Marksheet</label>
-                  <input type="file" class=" form-control-file" id="13-ba-1-marksheet">
+                  <input type="file" class=" form-control-file" id="13-ba-1-marksheet" optional>
                 </div>
                           
                 
@@ -290,7 +303,7 @@
               <div class="card-body">
                 <div class="form-check">
                   <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" value="" id="15-ba-3-completed">
+                      <input class="form-check-input" type="checkbox" value="" id="15-ba-3-completed" optional>
                       BA / BSc. Semester 3 Completed
                       <span class="form-check-sign">
                           <span class="check"></span>
@@ -300,13 +313,15 @@
               
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="15-ba-3-Marks-Obtained" placeholder="Marks Obtained">
+                    <input type="number" class="text-input-sm form-control" id="15-ba-3-Marks-Obtained" placeholder="Marks Obtained" optional
+                    onchange="javascript: calculate_percentage ('15-ba-3-Marks-Obtained', '15-ba-3-Total-Marks', '15-ba-3-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="15-ba-3-Total-Marks" placeholder="Total Marks">
+                    <input type="number" class="text-input-sm form-control" id="15-ba-3-Total-Marks" placeholder="Total Marks" optional
+                    onchange="javascript: calculate_percentage ('15-ba-3-Marks-Obtained', '15-ba-3-Total-Marks', '15-ba-3-Percentage')">
                   </div>
                   <div class="form-group col-md-4">
-                    <input type="number" class="text-input-sm form-control" id="15-ba-3-Percentage" placeholder="Percentage">
+                    <input type="number" class="text-input-sm form-control" id="15-ba-3-Percentage" placeholder="Percentage" optional disabled>
                   </div>
                 </div>
                 <!-- <input type="text" class="text-input-lg form-control" id="12-school"  placeholder="Name of School"> -->
@@ -314,18 +329,19 @@
                   <h4>Subjects</h4>
                 </div>
                 <div class="form-row">
-                    <input class="text-input-sm form-control" id="15-ba-3-subject-1" placeholder="1.">
-                    <input class="text-input-sm form-control" id="15-ba-3-subject-2" placeholder="2.">
-                    <input class="text-input-sm form-control" id="15-ba-3-subject-3" placeholder="3.">
-                    <input class="text-input-sm form-control" id="15-ba-3-subject-4" placeholder="4.">
-                    <input class="text-input-sm form-control" id="15-ba-3-subject-5" placeholder="5.">
-                    <input class="text-input-sm form-control" id="15-ba-3-subject-6" placeholder="6.">
+                    <input class="text-input-sm form-control" id="15-ba-3-subject-1" placeholder="1." optional>
+                    <input class="text-input-sm form-control" id="15-ba-3-subject-2" placeholder="2." optional>
+                    <input class="text-input-sm form-control" id="15-ba-3-subject-3" placeholder="3." optional>
+                    <input class="text-input-sm form-control" id="15-ba-3-subject-4" placeholder="4." optional>
+                    <input class="text-input-sm form-control" id="15-ba-3-subject-5" placeholder="5." optional>
+                    <input class="text-input-sm form-control" id="15-ba-3-subject-6" placeholder="6." optional>
                 </div>
+                <img id="15-ba-3-marksheet-img" width="300">
                 <div class="row">
                   <label class="h5" for="15-ba-3-marksheet">
                     <i class="material-icons">attach_file</i>
                     Attach Semester 3 Marksheet</label>
-                  <input type="file" class=" form-control-file" id="15-ba-3-marksheet">
+                  <input type="file" class=" form-control-file" id="15-ba-3-marksheet" optional>
                 </div>
                           
                 

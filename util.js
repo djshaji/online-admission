@@ -113,10 +113,14 @@ function init () {
       document.getElementById ("menu-profile").classList.remove ('d-none')
       document.getElementById ("menu-logout").classList.remove ('d-none')
 
-      if (module == 'profile')
-        check_progress ()
-      else if (module == 'index') {
-        get_tokens ()
+      switch (module) {
+        case 'index':
+        default:
+          get_tokens ()
+          break ;
+        case 'profile':
+          check_progress ()
+          break ;
       }
     } else {
       // No user is signed in.
@@ -407,6 +411,11 @@ async function get_tokens () {
   .then((idTokenResult) => {
     console.log (idTokenResult)
     
+    if (idTokenResult.claims.hasOwnProperty ("admin")) {
+      is_admin ()
+      return
+    }
+      
     if (!idTokenResult.claims.hasOwnProperty ("semester"))
       return
       
@@ -480,4 +489,8 @@ function calculate_percentage (el1, el2, el3)  {
   
   if (e1 != '' && e2 != '')
     document.getElementById (el3).value = (e1 / e2) * 100
+}
+
+function is_admin () {
+  
 }

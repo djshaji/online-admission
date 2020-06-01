@@ -50,11 +50,42 @@
 <div class="main main-raised">
   <div class="container">
       <div class="section text-center">
-        <h2 id="header-title" class="title">Admin for Admissions Portal</h2>
-        <h2 id="header-callback" class="title"></h2>
-
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">Admin for Admission</h1>
+            <p class="lead">You can download list of users, or set date for document verification</p>
+            <div class="container row">
+              <select class="col-md-2 custom-select my-1 mr-sm-2" id="semester">
+                <option selected>Stream</option>
+                <option value="ba">BA</option>
+                <option value="bsc">BSc</option>
+              </select>
+              <select class="col-md-2 custom-select my-1 mr-sm-2" id="semester">
+                <option selected>Semester</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+              </select>
+              <div class="form-group form-inline col-md-2 col">
+                <label for="per-page">Items per page</label>
+                <input value="20" type="number" class="form-control form-inline" id="per-page" placeholder="Items per page">
+              </div>
+              <div class="form-group form-inline col-md-1 col">
+                <label for="page">Page</label>
+                <input value="1" type="number" class="form-control form-inline" id="page" placeholder="Page">
+              </div>
+              <label class="col-2 lead">of <span id="total-pages">1</span></label>
+                       
+            </div>
+          </div>
+        </div>
       </div>
-
+      <div class="section">
+        <table class="table table-hover table-responsive-md">
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
     </div>
 </div>
   

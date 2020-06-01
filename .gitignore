@@ -64,3 +64,5 @@ node_modules/
 # dotenv environment variables file
 .env
 firebaseConfig.js
+
+server/gdc-online-admissions-firebase-adminsdk-hyxij-159d22f098.json

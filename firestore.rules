@@ -9,6 +9,7 @@ service cloud.firestore {
       allow read: if (request.auth.uid == uid) ;
       allow create: if (request.auth.uid == uid && resource == null) ;
     	allow read, write: if (request.auth.uid == uid && ! ("final-submit" in resource.data))
+      allow read, write: if (request.auth.token.admin == true);
     }
   }
 }

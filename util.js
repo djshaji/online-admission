@@ -492,5 +492,5 @@ function calculate_percentage (el1, el2, el3)  {
 }
 
 function is_admin () {
-  
+  get_data ()
 }

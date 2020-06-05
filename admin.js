@@ -36,14 +36,18 @@ function get_data () {
     db.collection ("users").doc (semester).collection (stream).get ()
     .then(function(querySnapshot) {
         snapshot = querySnapshot
-        pages.value = Math.ceil (snapshot.docs.length / items_per_page)
-        counter = 0 ;
+        pages.innerText = Math.ceil (snapshot.docs.length / items_per_page)
+        total_pages = Math.ceil (snapshot.docs.length / items_per_page)
+        counter = items_per_page * (page - 1) ;
 
         //build columns
         thead = document.getElementById ("thead")
         tbody = document.getElementById ("tbody")
         thead.innerHTML = ''
         tbody.innerHTML = ''
+        sno = document.createElement ("th")
+        sno.innerText = "S. No"
+        thead.appendChild (sno)
         for (c of columns) {
             th = document.createElement ("th")
             field = c
@@ -68,7 +72,7 @@ function get_data () {
                 continue ;
             
             counter = counter + 1
-            if (counter >= items_per_page) {
+            if (counter > items_per_page * page) {
                 // console.log ("per page limit reached")
                 return
             }
@@ -77,6 +81,9 @@ function get_data () {
             uid = doc.id
             tr = document.createElement ('tr')
             tbody.appendChild (tr)
+            sno = document.createElement ("td")
+            sno.innerText = counter
+            tr.appendChild (sno)
             for (c of columns) {
                 td = document.createElement ('td')
                 // is it an image?
@@ -87,13 +94,13 @@ function get_data () {
                 }
 
                 if (is_image) {
-                    img = document.createElement ('img')
+                    let img = document.createElement ('img')
                     img.setAttribute ("width", "64px")
                     td.appendChild (img)
                     img.src = "assets/img/spinner.gif"
                     storage.ref (data [c]).getDownloadURL()
                       .then(function(url) {
-                        console.log (img.id, url)
+                        // console.log (img.id, url)
                         img.src = url
                       }).catch(function(error) {
                         // Handle any errors
@@ -115,4 +122,28 @@ function get_data () {
         console.log("Error getting documents: ", error);
     });
 
+}
+
+function page_next () {
+    page = parseInt (document.getElementById ("page").value)
+    pages = parseInt (document.getElementById ("total-pages").innerText    )
+
+    page = page + 1
+    if (page < (pages + 1)) {
+        document.getElementById ("page").value = page
+        document.getElementById ("go-btn").click ()
+    } else
+        alert ("You are already at the last page")
+
+}
+
+function page_prev () {
+    page = parseInt (document.getElementById ("page").value)
+
+    page = page - 1
+    if (page > 0) {
+        document.getElementById ("page").value = page
+        document.getElementById ("go-btn").click ()
+    }  else
+        alert ("You are already at the first page")
 }

@@ -43,7 +43,6 @@
 
 <script src="firebaseConfig.js"></script>
 <script src="util.js"></script>
-<script src="admin.js"></script>
 
 <div w3-include-html="header.html"></div>
 <div class="page-header" data-parallax="true" style="height: 70px;">
@@ -71,13 +70,21 @@
                 <label for="per-page">Items per page</label>
                 <input value="20" type="number" class="form-control form-inline" id="per-page" placeholder="Items per page">
               </div>
-              <div class="form-group form-inline col-md-1 col">
+              <div class="form-group form-inline col-md-1 col-1">
                 <label for="page">Page</label>
                 <input value="1" type="number" class="form-control form-inline" id="page" placeholder="Page">
               </div>
-              <label class="col-2 lead">of <span id="total-pages">1</span></label>
+              <label class="col-1 lead">of <span id="total-pages">1</span></label>
               <div>
-                <a href="javascript: get_data ()" class="btn btn-success text-white">Go</a>
+                <a id="go-btn" href="javascript: get_data ()" class="btn btn-success text-white">Go</a>
+              </div>
+              <div class="row col-3">
+                <div>
+                  <a href="javascript: page_prev ()" class="btn btn-primary text-white"><</a>
+                </div>
+                <div>
+                  <a href="javascript: page_next ()" class="btn btn-primary text-white">></a>
+                </div>
               </div>
             </div>
           </div>
@@ -99,6 +106,7 @@
 includeHTML();
 init ()
 </script>
+<script src="admin.js"></script>
 
 
 <div class="modal fade" id="spinner"  data-keyboard="false" data-backdrop="static" >

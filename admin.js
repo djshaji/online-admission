@@ -45,8 +45,15 @@ function get_data () {
         tbody = document.getElementById ("tbody")
         thead.innerHTML = ''
         tbody.innerHTML = ''
+        sa = document.createElement ("th")
+        sa.innerHTML = 
+            '\
+            <div class="form-inline">\
+                <input class="form-check-input" type="checkbox" value="" id="select-all" onchange="javascript: select_all ()">\
+            </div>'
         sno = document.createElement ("th")
         sno.innerText = "S. No"
+        thead.appendChild (sa)
         thead.appendChild (sno)
         for (c of columns) {
             th = document.createElement ("th")
@@ -65,6 +72,10 @@ function get_data () {
             th.innerText = field
             thead.appendChild (th)
         }
+
+        st = document.createElement ("th")
+        st.innerText = "Admission Status"
+        thead.appendChild (st)
 
         i = 0 ;
         querySnapshot.forEach(function(doc) {
@@ -87,9 +98,17 @@ function get_data () {
             // console.log ('processing user', uid)
             tr = document.createElement ('tr')
             tbody.appendChild (tr)
+            sa = document.createElement ("td")
+            sa.innerHTML = 
+                '\
+                <div class="form-inline">\
+                    <input class="form-check-input" type="checkbox" value="" id="' + uid + '">\
+                </div>'
             sno = document.createElement ("td")
             sno.innerText = counter
+            tr.appendChild (sa)
             tr.appendChild (sno)
+
             for (c of columns) {
                 td = document.createElement ('td')
                 // is it an image?
@@ -118,8 +137,32 @@ function get_data () {
                     td.innerText = data [c]
 
                 tr.appendChild (td)
+  
             }
-
+            st = document.createElement ("td")
+            switch (data ["status"]) {
+                case null:
+                default:
+                  st.innerHTML = '<span class="btn btn-warning">Pending</span>' ;
+                  break
+                case "approved":
+                  st.innerHTML = '<span class="btn btn-success">Approved</span>' ;
+                  break
+                case "rejected":
+                  st.innerHTML = '<span class="btn btn-danger">Rejected</span>' ;
+                  break
+              }
+                    
+            tr.appendChild (st)
+            callback = data ["callback"]
+            callback_date = data ["callback-date"]
+            callback_status = document.createElement ("span")
+            if (callback != null && callback_date != null) {
+                callback_status.innerHTML = 
+                  "<span class='btn btn-danger'>" + callback + '</span> on <span class="btn btn-danger">' + callback_date + '</span>'
+                tr.appendChild (callback_status)
+              }
+              
         });
 
         $("#spinner").modal ("hide")
@@ -152,4 +195,71 @@ function page_prev () {
         document.getElementById ("go-btn").click ()
     }  else
         alert ("You are already at the first page")
+}
+
+function select_all () {
+    checked = document.getElementById ("select-all").checked
+    document.getElementById ('tbody').querySelectorAll ("input").forEach (function (id) {
+        if (id.type == 'checkbox') {
+            id.checked = checked
+        }
+    })
+
+}
+
+function set_admission_status () {
+    ids = []
+    document.getElementById ('tbody').querySelectorAll ("input").forEach (function (input) {
+        if (input.type == 'checkbox' && input.checked)
+            ids.push (input.id)
+    })
+
+    status = document.getElementById ("admission-status").value
+    if (status == '0') {
+        alert ("Select an admission status to set")
+        document.getElementById ("admission-status").focus ()
+        return
+    }
+
+    semester = document.getElementById ("semester").value
+    stream = document.getElementById ("stream").value
+
+    if (stream == 'stream' || semester == 'semester') {
+        alert ("Select a stream and semester to set admission status")
+        return
+    }
+
+    var db = firebase.firestore();
+    var batch = db.batch();
+
+    for (id of ids) {
+        let ref = db.collection ("users").doc (semester).collection (stream).doc (id)
+        batch.set (ref, {status: status}, {merge: true})
+    }
+
+
+    spinner_show ("Saving...")
+    batch.commit ().then (function (){
+        spinner_hide ()
+        alert ("Admission Status set successfully")
+        get_data ()
+    }).catch (function (error){
+        spinner_hide ()
+        alert ("An error occurred\n\n" + error)
+        console.error (error)
+    })
+}
+
+function spinner_show (status = null) {
+    $("#spinner").modal ("show")
+    if (status)
+        document.getElementById ("spinner-status").innerText = status
+    else
+        document.getElementById ("spinner-status").innerText = "Loading..."
+}
+
+function spinner_hide () {
+    $("#spinner").modal ("show")
+    document.getElementById ("spinner-status").innerText = "Loading..."
+
 }

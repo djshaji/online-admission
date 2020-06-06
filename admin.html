@@ -91,14 +91,14 @@
           </div>
 
           <div class="container form-inline">
-            <select class="col-md-2 col custom-select my-1 mr-sm-2" id="semester">
+            <select class="col-md-2 col custom-select my-1 mr-sm-2" id="admission-status">
               <option value="0">Mark Selected</option>
               <option class="bg-success" value="approved">Approved</option>
               <option class="bg-warning" value="pending">Pending</option>
-              <option class="bg-danger" value="pending">Rejected</option>
+              <option class="bg-danger" value="rejected">Rejected</option>
             </select>
-            <a class="mr-2 btn btn-primary text-white">Go</a>
-            <select class="col-md-3 col custom-select my-1 mr-sm-2" id="semester">
+            <a href="javascript: set_admission_status ()" class="mr-2 btn btn-primary text-white">Go</a>
+            <select class="col-md-3 col custom-select my-1 mr-sm-2" id="date-for">
               <option value="0">Set Date for Selected</option>
               <option value="verification">Document Verification</option>
               <option value="interview">Interview</option>

@@ -72,7 +72,7 @@ function get_data () {
 
             if (i < ((page - 1) * items_per_page)) {
                 i = i + 1 ;
-                console.log ('skipping user', doc.id)
+                // console.log ('skipping user', doc.id)
                 return ;
             }
             
@@ -84,7 +84,7 @@ function get_data () {
             // console.log(doc.id, " => ", doc.data());
             data = doc.data ()
             uid = doc.id
-            console.log ('processing user', uid)
+            // console.log ('processing user', uid)
             tr = document.createElement ('tr')
             tbody.appendChild (tr)
             sno = document.createElement ("td")

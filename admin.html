@@ -39,6 +39,7 @@
 <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-storage.js"></script>
 <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/style.css" />
 
 <script src="firebaseConfig.js"></script>
@@ -49,7 +50,7 @@
 </div>
 <div class="main main-raised">
   <div class="container">
-      <div class="section text-center">
+      <div class="section text-center" style="padding-bottom: 0;">
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
             <h1 class="display-4">Admin for Admission</h1>
@@ -88,9 +89,46 @@
               </div>
             </div>
           </div>
+
+          <div class="container form-inline">
+            <select class="col-md-2 col custom-select my-1 mr-sm-2" id="semester">
+              <option value="0">Mark Selected</option>
+              <option class="bg-success" value="approved">Approved</option>
+              <option class="bg-warning" value="pending">Pending</option>
+              <option class="bg-danger" value="pending">Rejected</option>
+            </select>
+            <a class="mr-2 btn btn-primary text-white">Go</a>
+            <select class="col-md-3 col custom-select my-1 mr-sm-2" id="semester">
+              <option value="0">Set Date for Selected</option>
+              <option value="verification">Document Verification</option>
+              <option value="interview">Interview</option>
+            </select>
+
+            <div >
+              <input type='text' class="mr-2 form-control" id='datetimepicker4' placeholder="Choose Date / Time"/>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker4').datetimepicker({
+                      icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove'
+                      }
+                    });
+                });
+            </script>
+            <a class="btn btn-primary text-white">Set Date</a>
+          </div>
         </div>
       </div>
-      <div class="section">
+      <div class="section mt-0" style="padding-top: 0;">
         <table class="table table-hover table-responsive-md">
           <thead id="thead"></thead>
           <tbody id="tbody"></tbody>

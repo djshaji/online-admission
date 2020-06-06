@@ -66,10 +66,15 @@ function get_data () {
             thead.appendChild (th)
         }
 
+        i = 0 ;
         querySnapshot.forEach(function(doc) {
             // skip if we are not on page 1
-            for (i = 0 ; i < ((page - 1)/items_per_page) ; i ++)
-                continue ;
+
+            if (i < ((page - 1) * items_per_page)) {
+                i = i + 1 ;
+                console.log ('skipping user', doc.id)
+                return ;
+            }
             
             counter = counter + 1
             if (counter > items_per_page * page) {
@@ -79,6 +84,7 @@ function get_data () {
             // console.log(doc.id, " => ", doc.data());
             data = doc.data ()
             uid = doc.id
+            console.log ('processing user', uid)
             tr = document.createElement ('tr')
             tbody.appendChild (tr)
             sno = document.createElement ("td")

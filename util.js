@@ -110,7 +110,6 @@ function init () {
       fireuser = user
       console.log (user)
       // User is signed in.
-      document.getElementById ("menu-profile").classList.remove ('d-none')
       document.getElementById ("menu-logout").classList.remove ('d-none')
 
       switch (module) {
@@ -119,6 +118,7 @@ function init () {
           get_tokens ()
           break ;
         case 'profile':
+          document.getElementById ("menu-profile").classList.remove ('d-none')
           check_progress ()
           break ;
       }
@@ -493,7 +493,29 @@ function calculate_percentage (el1, el2, el3)  {
 }
 
 function is_admin () {
+  document.getElementById ("menu-admin").classList.remove ('d-none')
   // get_data ()
   if (localStorage.items_per_page)
     document.getElementById ("per-page").value = localStorage.items_per_page
+  
+}
+
+function get_random_theme () {
+  var url = "http://colormind.io/api/";
+  var data = {
+    model : "default",
+    input : [[44,43,44],[90,83,82],"N","N","N"]
+  }
+  
+  var http = new XMLHttpRequest();
+  
+  http.onreadystatechange = function() {
+    if(http.readyState == 4 && http.status == 200) {
+      var palette = JSON.parse(http.responseText).result;
+    }
+  }
+  
+  http.open("POST", url, true);
+  http.send(JSON.stringify(data));
+  
 }

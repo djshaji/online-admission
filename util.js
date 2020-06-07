@@ -388,6 +388,7 @@ function final_submit () {
   
   data = {
     "final-submit": true,
+    "final-date-submitted": Date (),
     "i-agree": "on"
   }
 

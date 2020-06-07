@@ -12,6 +12,7 @@ if (localStorage.columns != null && localStorage.columns != '')
     columns = localStorage.columns.split (';')
 
 var columns_all = []
+var default_sort_by = localStorage.sort_by
 
 sems = [1] // hack for testing!
 for (i of document.getElementById ("semester").querySelectorAll ("input"))
@@ -39,11 +40,19 @@ function get_data (sortby = null, order = null) {
     var storage = firebase.storage();
     console.log ("Getting data for", semester, stream)
     query = db.collection ("users").doc (semester).collection (stream)
-    if (sortby && order != null)
+    if (sortby && order != null) {
         query = query.orderBy (sortby, order)
-    else if (sortby)
+        localStorage.sort_by = sortby
+    }
+    else if (sortby) {
         query = query.orderBy (sortby)
-    
+        localStorage.sort_by = sortby
+    }
+    else if (localStorage.sort_by) {
+        query = query.orderBy (localStorage.sort_by)
+        sortby = localStorage.sort_by
+    }
+
     query.get ()
     .then(function(querySnapshot) {
         snapshot = querySnapshot

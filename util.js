@@ -494,4 +494,6 @@ function calculate_percentage (el1, el2, el3)  {
 
 function is_admin () {
   // get_data ()
+  if (localStorage.items_per_page)
+    document.getElementById ("per-page").value = localStorage.items_per_page
 }

@@ -24,6 +24,7 @@ function get_data (sortby = null, order = null) {
     page = document.getElementById ("page").value
     pages = document.getElementById ("total-pages")
 
+    localStorage.items_per_page = items_per_page
     document.getElementById ("spinner-status").innerText = "Loading..."
 
     semester = document.getElementById ("semester").value

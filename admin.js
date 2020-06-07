@@ -18,7 +18,7 @@ for (i of document.getElementById ("semester").querySelectorAll ("input"))
     sems.append (i.value)
 
 snapshot = null ;
-function get_data () {
+function get_data (sortby = null, order = null) {
     items_per_page = document.getElementById ("per-page").value
     page = document.getElementById ("page").value
     pages = document.getElementById ("total-pages")
@@ -38,7 +38,13 @@ function get_data () {
     var db = firebase.firestore();
     var storage = firebase.storage();
     console.log ("Getting data for", semester, stream)
-    db.collection ("users").doc (semester).collection (stream).get ()
+    query = db.collection ("users").doc (semester).collection (stream)
+    if (sortby && order != null)
+        query = query.orderBy (sortby, order)
+    else if (sortby)
+        query = query.orderBy (sortby)
+    
+    query.get ()
     .then(function(querySnapshot) {
         snapshot = querySnapshot
         pages.innerText = Math.ceil (snapshot.docs.length / items_per_page)
@@ -105,8 +111,18 @@ function get_data () {
                 field = field.split ('+') [1]
                 field = field.replace (/-/g, ' ')
             }
-            
-            th.innerText = field
+
+            sort_icon = ''            
+            if (sortby == c) {
+                if (order == 'desc') {
+                    sort_icon = 'expand_more'
+                } else {
+                    sort_icon = 'expand_less'
+                }
+
+            }
+
+            th.innerHTML = '<a href="javascript: sort_by (\'' + c + '\')">' + field + '<i class="material-icons" id="' + c + '-order">' + sort_icon +'</i></a>'
             thead.appendChild (th)
         }
 
@@ -406,4 +422,18 @@ function save_columns () {
     localStorage.columns = columns.join (';')
     $("#settings-dialog").modal ("hide")
     get_data ()
+}
+
+function sort_by (sort) {
+    el = document.getElementById (sort)
+    if (el.order == null) {
+        el.order = "desc"
+        console.log (sort + '-order')
+        // document.getElementById (sort + '-order').innerText = 'vertical_align_bottom'
+    } else {
+        el.order = null
+        // document.getElementById (sort + '-order').innerText = 'vertical_align_top'
+    }
+
+    get_data (sort, el.order)
 }

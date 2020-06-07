@@ -40,6 +40,38 @@ function get_data () {
         total_pages = Math.ceil (snapshot.docs.length / items_per_page)
         counter = items_per_page * (page - 1) ;
 
+        //pagination
+        pagination = document.getElementById ("pagination")
+        pagination.innerHTML = ''
+        prev = document.createElement ('li')
+        prev.classList.add ('page-item')
+        prev.innerHTML = '<a class="page-link" href="javascript: page_prev ()" tabindex="-1">Previous</a>'
+        pagination.appendChild (prev)
+        next = document.createElement ('li')
+        next.classList.add ('page-item')
+        next.innerHTML = '<a class="page-link" href="javascript: page_next ()" >Next</a>'
+        for (x = 1 ; x < total_pages + 1 ; x ++) {
+            p = document.createElement ('li')
+            p.classList.add ("page-item")
+            let a = document.createElement ('a')
+            a.href = 'javascript: goto_page (' + x + ')'
+            a.classList.add ('page-link')
+            a.innerText = x
+            p.appendChild (a)
+            // p.innerHTML = '<a class="page-link" href="javascript: goto_page (' + x + ')">' + x + '</a>'
+            if (x == page) {
+                p.classList.add ('bg-primary')
+                a.classList.add ('text-white')
+            }
+            
+            if (total_pages > 10) {
+                if (x < 5 || x > total_pages - 5)
+                    pagination.appendChild (p)
+            } else 
+                pagination.appendChild (p)
+        }
+        pagination.appendChild (next)
+
         //build columns
         thead = document.getElementById ("thead")
         tbody = document.getElementById ("tbody")
@@ -76,6 +108,9 @@ function get_data () {
         st = document.createElement ("th")
         st.innerText = "Admission Status"
         thead.appendChild (st)
+        cbst = document.createElement ("th")
+        cbst.innerText = "Callback Status"
+        thead.appendChild (cbst)
 
         i = 0 ;
         querySnapshot.forEach(function(doc) {
@@ -153,14 +188,16 @@ function get_data () {
                   break
               }
                     
+            cb_status = document.createElement ("td")
             tr.appendChild (st)
+            tr.appendChild (cb_status)
             callback = data ["callback"]
             callback_date = data ["callback-date"]
             callback_status = document.createElement ("span")
             if (callback != null && callback_date != null) {
                 callback_status.innerHTML = 
-                  "<span class='btn btn-danger'>" + callback + '</span> on <span class="btn btn-danger">' + callback_date + '</span>'
-                tr.appendChild (callback_status)
+                  "<div>" + callback + ' on ' + callback_date + '</div>'
+                cb_status.appendChild (callback_status)
               }
               
         });
@@ -173,11 +210,13 @@ function get_data () {
 
 }
 
-function page_next () {
+function page_next (increment = true) {
     page = parseInt (document.getElementById ("page").value)
     pages = parseInt (document.getElementById ("total-pages").innerText    )
 
-    page = page + 1
+    if (increment)
+        page = page + 1
+    
     if (page < (pages + 1)) {
         document.getElementById ("page").value = page
         document.getElementById ("go-btn").click ()
@@ -262,4 +301,51 @@ function spinner_hide () {
     $("#spinner").modal ("show")
     document.getElementById ("spinner-status").innerText = "Loading..."
 
+}
+
+function set_callback_date () {
+    ids = []
+    document.getElementById ('tbody').querySelectorAll ("input").forEach (function (input) {
+        if (input.type == 'checkbox' && input.checked)
+            ids.push (input.id)
+    })
+
+    callback = document.getElementById ("date-for").value
+    date = document.getElementById ("datetimepicker4").value
+
+    if (callback == "0" || date == '') {
+        alert ("Select a Date and Event")
+        return
+    }
+
+    data = {
+        callback: callback,
+        'callback-date': date
+    }
+
+    var db = firebase.firestore();
+    var batch = db.batch();
+
+    for (id of ids) {
+        let ref = db.collection ("users").doc (semester).collection (stream).doc (id)
+        batch.set (ref, data, {merge: true})
+    }
+
+
+    spinner_show ("Saving...")
+    batch.commit ().then (function (){
+        spinner_hide ()
+        alert ("Admission Status set successfully")
+        get_data ()
+    }).catch (function (error){
+        spinner_hide ()
+        alert ("An error occurred\n\n" + error)
+        console.error (error)
+    })
+
+}
+
+function goto_page (page) {
+    document.getElementById ("page").value = page
+    page_next (false)
 }

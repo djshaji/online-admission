@@ -8,6 +8,11 @@ var columns = [
     "05-Date-of-Birth-Year"
 ]
 
+if (localStorage.columns != null && localStorage.columns != '')
+    columns = localStorage.columns.split (';')
+
+var columns_all = []
+
 sems = [1] // hack for testing!
 for (i of document.getElementById ("semester").querySelectorAll ("input"))
     sems.append (i.value)
@@ -202,6 +207,46 @@ function get_data () {
               
         });
 
+        columns_all = []
+        d = document.getElementById ("choose-columns")
+        
+        for (e in snapshot.docs [0].data ()) {
+            columns_all.push (e)
+
+        }
+
+        columns_all.sort ()
+        tr = document.createElement ("tr")
+        d.appendChild (tr)
+        sw = 0
+        for (c in columns_all) {
+            td = document.createElement ("td")
+            field = columns_all [c]
+            if (field.search ('-') != -1) {
+                field = field.replace ('-', '+').split ('+')[1].replace (/-/g, ' ')
+            }
+            
+            checked = ' '
+            if (c in columns)
+                checked = 'checked'
+            td.innerHTML = 
+            '<div class="form-check form-check-inline">\
+                <input class="form-check" type="checkbox" id="' + columns_all [c] + '" value="' + columns_all [c] + '"' + checked + '>\
+                <label class="form-check-label" for="' + c + 'inlineCheckbox1">' + field + '</label>\
+            </div>'
+
+            tr.appendChild (td)            
+            sw = sw + 1
+            if (sw == 4) {
+                sw = 0
+                tr = document.createElement ("tr")
+                d.appendChild (tr)
+        
+            }
+
+
+        }
+
         $("#spinner").modal ("hide")
     })
     .catch(function(error) {
@@ -348,4 +393,17 @@ function set_callback_date () {
 function goto_page (page) {
     document.getElementById ("page").value = page
     page_next (false)
+}
+
+function save_columns () {
+    columns = []
+    document.getElementById ("choose-columns").querySelectorAll ("input").forEach (function (i) {
+        if (i.type == 'checkbox' && i.checked) {
+            columns.push (i.id)
+        }
+    })
+
+    localStorage.columns = columns.join (';')
+    $("#settings-dialog").modal ("hide")
+    get_data ()
 }

@@ -43,10 +43,16 @@ function get_data (sortby = null, order = null) {
     if (sortby && order != null) {
         query = query.orderBy (sortby, order)
         localStorage.sort_by = sortby
+        localStorage.sort_order = order
     }
     else if (sortby) {
         query = query.orderBy (sortby)
         localStorage.sort_by = sortby
+    }
+    else if (localStorage.sort_by && localStorage.sort_order) {
+        query = query.orderBy (localStorage.sort_by, localStorage.sort_order)
+        sortby = localStorage.sort_by
+        order = localStorage.sort_order
     }
     else if (localStorage.sort_by) {
         query = query.orderBy (localStorage.sort_by)

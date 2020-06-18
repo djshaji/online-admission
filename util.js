@@ -196,6 +196,10 @@ function check_progress () {
   firebase.auth().currentUser.getIdTokenResult(true)
   .then((idTokenResult) => {
     console.log (idTokenResult)
+    if (idTokenResult.claims.hasOwnProperty ("admin")) {
+      location.href = "/admin.html"
+      return
+    }
     
     if (!idTokenResult.claims.hasOwnProperty ("semester"))
       return

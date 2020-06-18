@@ -121,5 +121,5 @@ async function set_test_data (number, semester, stream) {
   }
 }
 
-// set_admin (process.argv [2])
-set_test_data (15, '6', 'BSc')
+set_admin (process.argv [2])
+// set_test_data (15, '6', 'BSc')

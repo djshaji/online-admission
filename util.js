@@ -9,6 +9,35 @@ const blood_groups = [
   "O-"
 ]
 
+const subject_combinations = {
+  "A1": [
+    "General English",
+    "Communication English",
+    "Environmental Science",
+    "Education"
+  ]
+}
+
+function populate_combinations (element) {
+  d = document.getElementById (element)
+  for (a in subject_combinations) {
+    o = document.createElement ('option')
+    o.value = a
+    o.innerText = a
+    d.appendChild (o)
+  }
+}
+
+function select_combination (element, pattern) {
+  console.log ("do")
+  el = document.getElementById (element)
+  counter = 1
+  for (a of subject_combinations [el.value]) {
+    document.getElementById (pattern + counter).value = a
+    counter = counter + 1
+  }
+}
+
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
   /* Loop through a collection of all HTML elements: */

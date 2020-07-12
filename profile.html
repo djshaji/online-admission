@@ -7,6 +7,7 @@
 <!-- Fonts and icons -->
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"> -->
 
 <!-- Material Kit CSS -->
 <link href="assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />
@@ -88,19 +89,84 @@
     <div class="tab-content tab-space">
       <div class="tab-pane active" id="profile">
         <div class="container">
-            <!-- <label for="name">Name</label> -->
-            <input type="text" class="form-control text-input" id="00-Name-Of-Student"  placeholder="Name of student" >
-            <input type="text" class="text-input form-control" id="01-Fathers-Name"  placeholder="Father's Name">
-            <input type="text" class="text-input form-control" id="02-Mothers-Name"  placeholder="Mother's Name">
-            <div class="form-group row" style="margin: 20px;">
-              <label >Date of Birth</label>
-              <input type="number" class="form-control col" placeholder="Day" id="03-Date-of-Birth-Day" style="width: 50px;">
-              <input type="number" class="form-control col" placeholder="Month" id="04-Date-of-Birth-Month" style="width: 50px;">
-              <input type="number" class="form-control col" placeholder="Year" id="05-Date-of-Birth-Year" style="width: 50px;">
+            <label for="name">Name of student</label>
+            <div class="form-row border p-3 mb-2">
+              <div class="col">
+                <!-- <label for="name">First Name</label> -->
+                <input type="text" class="form-control text-input" id="00-First-Name-Of-Student"  placeholder="First Name" >
+                
+              </div>
+              <div class="col">
+                <!-- <label for="name">First Name</label> -->
+                <input type="text" class="form-control text-input" id="00-Last-Name-Of-Student"  placeholder="Last Name" >
+                
+              </div>
             </div>
 
-            <input type="text" class="text-input form-control" id="05-Address"  placeholder="Address">
-            <input type="text" class="text-input form-control" id="06-Blood-Group"  placeholder="Blood Group">
+            <label for="name">Parentage</label>
+            <div class="form-row border p-3 mb-3">
+              <div class="col">
+                <input type="text" class="col text-input form-control" id="01-Fathers-Name"  placeholder="Father's Name">
+              </div>
+              <div class="col">
+                <input type="text" class="col text-input form-control" id="02-Mothers-Name"  placeholder="Mother's Name">
+              </div>
+            </div>
+            <label >Date of Birth</label>
+            <div class="form-row border p-3 mb-3">
+              <div class="container">
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <input type='text' class="form-control" id='datetimepicker4' />
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#datetimepicker4').datetimepicker({
+                              format: 'DD-MM-YYYY' ,
+                              icons: {
+                                time: "fa fa-clock-o",
+                                date: "fa fa-calendar",
+                                up: "fa fa-chevron-up",
+                                down: "fa fa-chevron-down",
+                                previous: 'fa fa-chevron-left',
+                                next: 'fa fa-chevron-right',
+                                today: 'fa fa-screenshot',
+                                clear: 'fa fa-trash',
+                                close: 'fa fa-remove'
+                              }
+
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            
+              </div>
+              <label >Address and Blood Group</label>
+              <div class="form-row border p-3 mb-3">
+                <div class="col">
+                  <label>Address</label>
+                  <input type="text" class="col text-input form-control" id="05-Address"  >
+
+                </div>
+                <div class="col">
+                  <label>Blood Group</label>
+                  <!-- <input type="text" class="text-input form-control" id="06-Blood-Group"  placeholder="Blood Group"> -->
+                  <select class="form-control selectpicker" id="06-Blood-Group">
+                    
+                  </select>
+                  <script>
+                    d = document.getElementById ("06-Blood-Group")
+                    for (f of blood_groups) {
+                      o = document.createElement ('option')
+                      o.value = f
+                      o.innerText = f
+                      d.appendChild (o)
+                    }
+                  </script>
+
+                </div>
+              </div>
             <label for="07-Admission-for-Stream">Admission sought for</label>
             <div class="form-group form-row">
               <div class="col-md-2">

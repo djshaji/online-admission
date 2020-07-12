@@ -1,3 +1,14 @@
+const blood_groups = [
+  "A-",
+  "A+",
+  "B-",
+  "B+",
+  "AB+",
+  "AB-",
+  "O+",
+  "O-"
+]
+
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
   /* Loop through a collection of all HTML elements: */
